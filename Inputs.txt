@@ -1,0 +1,42 @@
+http://127.0.0.1:8000/docs
+
+POST http://127.0.0.1:8000/v1/items
+{
+  "name": "Pen",
+  "description": "This is a Pen",
+  "price": 10
+}
+
+
+GET http://127.0.0.1:8000/v1/items/1
+
+
+PATCH http://127.0.0.1:8000/v1/items/1
+
+{
+  "name": "Pen",
+  "description": "This is a Pen",
+  "price": 15
+}
+
+GET http://127.0.0.1:8000/v1/items/1
+
+
+GET http://127.0.0.1:8000/items?version=1
+
+GET http://127.0.0.1:8000/items?version=2
+
+POST http://127.0.0.1:8000/v1/items
+(HATEOS)
+{
+    "message": "Item created",
+    "id": 3,
+    "_links": {
+        "self": "/v1/items/3",
+        "update": "/v1/items/3",
+        "delete": "/v1/items/3"
+    }
+}
+
+
+uvicorn main:app --reload
