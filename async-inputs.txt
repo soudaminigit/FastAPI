@@ -1,0 +1,8 @@
+curl http://127.0.0.1:8000/ping
+
+
+curl http://127.0.0.1:8000/async-task
+
+Wait for 5 secs
+
+curl http://127.0.0.1:8000/background-task

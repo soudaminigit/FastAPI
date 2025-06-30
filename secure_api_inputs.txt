@@ -1,0 +1,70 @@
+1. Test: Public Endpoint (No Auth Required)
+Request:
+
+GET http://localhost:8000/public
+Expected Response:
+
+{
+  "message": "This is a public endpoint."
+}
+ Test 5 times per minute → 200 OK
+ On 6th request → 429 Too Many Requests
+
+ 2. Test: Private Endpoint with Authorization Header
+ Valid Token
+Request:
+
+GET http://localhost:8000/private
+Headers:
+  Authorization: Bearer token123
+Expected Response:
+
+{
+  "message": "Hello alice, you are authorized."
+}
+ Invalid Token
+Request:
+
+GET http://localhost:8000/private
+Headers:
+  Authorization: Bearer invalidtoken
+Expected Response:
+
+{
+  "detail": "Invalid token"
+}
+ No Token
+Request:
+
+GET http://localhost:8000/private
+Expected Response:
+
+{
+  "detail": "Not authenticated"
+}
+ 3. Test: Rate Limiting on Private Endpoint
+Send 3 valid requests in 1 minute with a valid token:
+
+Authorization: Bearer token123
+ First 3 requests → 200 OK
+ 4th request → 429 Too Many Requests
+
+Expected Error:
+
+{
+  "error": "Rate limit exceeded. Try again later."
+}
+ 4. Test: Check Secure Headers in Response
+Request:
+
+GET http://localhost:8000/public
+In Postman, go to the "Headers" tab of the response.
+
+Expected Headers in response:
+
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-Content-Type-Options: nosniff
+X-Frame-Options: DENY
+X-Correlation-ID: <uuid>
+
+ 

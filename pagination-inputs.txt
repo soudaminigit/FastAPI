@@ -1,0 +1,7 @@
+GET http://127.0.0.1:8000/items?skip=2&limit=2
+
+GET http://127.0.0.1:8000/items?category=Electronics
+
+GET /items?sort_by=price&order=desc
+
+http://127.0.0.1:8000/items?category=Electronics&sort_by=price&order=asc&skip=0&limit=2

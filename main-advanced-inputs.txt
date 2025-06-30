@@ -1,0 +1,111 @@
+Example 1: Create a New Order
+Request
+POST /orders
+Content-Type: application/json
+
+{
+  "productID": 10,
+  "quantity": 5,
+  "orderValue": 99.99
+}
+Expected Response
+{
+  "message": "Order created",
+  "id": 3
+}
+ Example 2: PUT (Idempotent Update)
+PUT /orders/2
+Content-Type: application/json
+
+{
+  "productID": 4,
+  "quantity": 2,
+  "orderValue": 10.00
+}
+Run the request twice.
+
+Expected Output
+{
+  "message": "Order updated",
+  "order": {
+    "orderID": 2,
+    "productID": 4,
+    "quantity": 2,
+    "orderValue": 10.0
+  }
+}
+ Same state preserved both times, showing idempotency.
+
+ Example 3: GET with Caching
+GET /orders/2
+Expected Headers
+Cache-Control: max-age=600, private
+Content-Type: application/json
+{
+  "orderID": 2,
+  "productID": 4,
+  "quantity": 2,
+  "orderValue": 10.0
+}
+
+# Check the cache-header 
+# curl -i http://localhost:8000/orders/2
+
+ Example 4: Pagination
+GET /orders/?skip=0&limit=2
+Response
+[
+  { "orderID": 1, ... },
+  { "orderID": 2, ... }
+]
+ Example 5: Async Support for Long-Running Requests
+http
+GET /orders/slow/2
+Behavior
+2-second delay before response
+
+Returns order 2
+
+ Example 6: Unauthorized Access
+http
+GET /secure/orders
+Response
+json
+{
+  "detail": "Unauthorized"
+}
+ HTTP Status: 401 Unauthorized
+
+ Example 7: Authorized Access
+http
+GET /secure/orders
+X-Token: secret-token
+Response
+{
+  "2": { "orderID": 2, ... },
+  "3": { "orderID": 3, ... }
+}
+ Example 8: Logging Middleware
+Every request you send should print something like this in the terminal:
+
+INFO: Received request: GET http://127.0.0.1:8000/orders/2
+ Example 9: Error Handling
+GET /orders/999
+Response
+{
+  "detail": "Order not found"
+}
+Status: 404 Not Found
+
+#Example 10: Check the execution time
+
+Example 10: Monitoring and Headers
+GET /status
+User-Agent: Mozilla/5.0
+Response
+{
+  "status": "ok",
+  "user_agent": "Mozilla/5.0"
+}
+ This simulates analytics logging by browser/UA/device.
+
