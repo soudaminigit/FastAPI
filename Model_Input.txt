@@ -1,0 +1,12 @@
+POST   http://127.0.0.1:8000/predict/price
+{
+  "rooms": 3,
+  "area": 750,
+  "location": "B"
+}
+
+GET    http://127.0.0.1:8000/model/ml
+
+
+GET http://127.0.0.1:8000/model/dl
+
