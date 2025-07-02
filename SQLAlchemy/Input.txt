@@ -1,0 +1,17 @@
+POST http://localhost:8000/books/
+
+{
+  "title": "1984",
+  "author": "George Orwell"
+}
+
+
+GET http://localhost:8000/books/
+
+
+Feature	SQLAlchemy Use
+DB Schema	Use Python classes (models.py)
+DB Connection	engine, SessionLocal
+Queries	ORM: .query(), .add(), .commit()
+FastAPI Integration	Dependency injection with Depends(get_db)
+Validation	Pydantic models (schemas.py)
