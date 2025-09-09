@@ -1,0 +1,4 @@
+# USE This docker file for K8s
+docker build -t titanic-api .
+docker tag titanic-api srisoudamini/titanic-api
+docker push srisoudamini/titanic-api
