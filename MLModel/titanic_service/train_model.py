@@ -17,11 +17,12 @@ def train():
     model = RandomForestClassifier(n_estimators=100, random_state=42)
     model.fit(X, y)
 
-    with open("models/model.pkl", "wb") as f:
+    with open("model.pkl", "wb") as f:
         pickle.dump(model, f)
 
-    with open("models/features.pkl", "wb") as f:
+    with open("features.pkl", "wb") as f:
         pickle.dump(X.columns.tolist(), f)
 
 if __name__ == "__main__":
     train()
+
